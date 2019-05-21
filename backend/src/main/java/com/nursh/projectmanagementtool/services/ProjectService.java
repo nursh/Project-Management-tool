@@ -1,6 +1,7 @@
 package com.nursh.projectmanagementtool.services;
 
 import com.nursh.projectmanagementtool.domain.Project;
+import com.nursh.projectmanagementtool.exceptions.ProjectIDException;
 import com.nursh.projectmanagementtool.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,14 @@ public class ProjectService {
     }
 
     public Project saveOrUpdate(Project project) {
-        return projectRepository.save(project);
+
+        try {
+            project.setIdentifier(project.getIdentifier().toUpperCase());
+            return projectRepository.save(project);
+        } catch(Exception e) {
+            throw new ProjectIDException("Project Identifier: "
+                + project.getIdentifier().toUpperCase() + " already exists.");
+        }
+
     }
 }
