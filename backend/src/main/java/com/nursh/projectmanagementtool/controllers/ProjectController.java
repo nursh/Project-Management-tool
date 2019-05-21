@@ -18,8 +18,9 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Project> createNewProject(@RequestBody Project project) {
+        projectService.saveOrUpdate(project);
         return new ResponseEntity<>(project, HttpStatus.CREATED);
     }
 
