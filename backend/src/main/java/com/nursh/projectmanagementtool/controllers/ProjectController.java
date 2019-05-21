@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/project")
+@RequestMapping("/api/projects")
 public class ProjectController {
 
     private ProjectService projectService;
@@ -40,6 +40,11 @@ public class ProjectController {
     public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
         Project project = projectService.findByIdentifier(projectId);
         return new ResponseEntity<>(project, HttpStatus.OK);
+    }
+
+    @GetMapping("")
+    public Iterable<Project> getAllProjects() {
+        return projectService.findAllProjects();
     }
 
 
