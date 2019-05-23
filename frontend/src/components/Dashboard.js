@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 import ProjectItem from "./Project/ProjectItem";
 
@@ -7,10 +10,22 @@ import ProjectItem from "./Project/ProjectItem";
 export default class Dashboard extends Component {
   render() {
     return (
-      <div>
-        <h1>Dashboard</h1>
-        <ProjectItem />
-      </div>
+      <Container>
+        <Row className="mt-4">
+          <Col md={2}>
+            <h2>Projects</h2>
+          </Col>
+          <Col md={{ span: 3, offset: 7 }}>
+            <Button variant="primary" size="lg">
+              Create New Project
+            </Button>
+          </Col>
+        </Row>
+        
+        <Row>
+          <ProjectItem />
+        </Row>
+      </Container>
     );
   }
 }
