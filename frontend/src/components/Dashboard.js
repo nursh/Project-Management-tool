@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import { NavLink } from "react-router-dom";
 
 import ProjectItem from "./Project/ProjectItem";
 
@@ -16,20 +16,22 @@ export default class Dashboard extends Component {
             <h2>Projects</h2>
           </Col>
           <Col md={{ span: 3, offset: 7 }}>
-            <Button variant="primary" size="lg" href="#">
-              Create New Project
+            <Button variant="primary" size="lg">
+              <NavLink
+                to="/createProject"
+                style={{color: 'white', textDecoration: 'none'}}>
+                Create New Project
+              </NavLink>
             </Button>
           </Col>
         </Row>
 
         <Row className="mt-5">
-          {
-            [1, 2].map(n => (
-              <Col className="mb-3" md={12} >
-                <ProjectItem key={n}  /> 
-              </Col>
-            ))
-          }
+          {[1, 2].map(n => (
+            <Col className="mb-3" md={12}>
+              <ProjectItem key={n} />
+            </Col>
+          ))}
         </Row>
       </Container>
     );
