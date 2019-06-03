@@ -28,7 +28,7 @@ export default class Dashboard extends Component {
 
         <Row className="mt-5">
           {[1, 2].map(n => (
-            <Col className="mb-3" md={12}>
+            <Col className="mb-3" md={12} key={n}>
               <ProjectItem key={n} />
             </Col>
           ))}
