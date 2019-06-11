@@ -19,6 +19,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    const { projects } = this.props.projects;
     return (
       <Container>
         <Row className="mt-4">
@@ -37,9 +38,9 @@ class Dashboard extends Component {
         </Row>
 
         <Row className="mt-5">
-          {[1, 2].map(n => (
-            <Col className="mb-3" md={12} key={n}>
-              <ProjectItem key={n} />
+          {projects.map((project, n) => (
+            <Col className="mb-5" md={10} key={n}>
+              <ProjectItem key={n} project={project}/>
             </Col>
           ))}
         </Row>
@@ -49,7 +50,7 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  projects: PropTypes.array.isRequired,
+  projects: PropTypes.object.isRequired,
   getProjects: PropTypes.func.isRequired
 };
 

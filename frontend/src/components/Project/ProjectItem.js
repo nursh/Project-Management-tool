@@ -5,12 +5,13 @@ import { FaTrashAlt, FaEdit, FaTasks } from 'react-icons/fa';
 
 class ProjectItem extends Component {
   render() {
+    const { project } = this.props;
     return (
       <Card>
-        <Card.Header>Project Id</Card.Header>
+        <Card.Header>{project.identifier}</Card.Header>
         <Card.Body>
-          <Card.Title>Project Title</Card.Title>
-          <Card.Text>Project Description goes in here. Lorem ipsum, dolor sit amet consectetur adipisicing eli.</Card.Text>
+          <Card.Title>{project.name}</Card.Title>
+          <Card.Text>{project.description}</Card.Text>
         </Card.Body>
         <Card.Footer className="d-flex flex-row-reverse">
           <Button variant="outline-danger" className="d-flex align-items-center  ml-3">
