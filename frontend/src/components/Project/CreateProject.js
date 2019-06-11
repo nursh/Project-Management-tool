@@ -6,9 +6,12 @@ import Col from "react-bootstrap/Col";
 import Button from 'react-bootstrap/Button';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createProject } from '../../actions';
 
 
-export default class CreateProject extends Component {
+class CreateProject extends Component {
   
   state = {
     name: '',
@@ -38,8 +41,8 @@ export default class CreateProject extends Component {
 
   onSubmit = (evt) => {
     evt.preventDefault();
-    const newDate = Object.assign({}, this.state);
-    console.log(newDate);
+    const project = Object.assign({}, this.state);
+    this.props.createProject(project, this.props.history);
   }
 
   render() {
@@ -111,3 +114,12 @@ export default class CreateProject extends Component {
     );
   }
 }
+
+CreateProject.propTypes = {
+  createProject: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { createProject }
+)(CreateProject);
