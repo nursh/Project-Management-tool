@@ -9,10 +9,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getProject } from "../../actions";
+import { getProject, createProject } from "../../actions";
 
 class EditProject extends Component {
   state = {
+    id: '',
     name: "",
     identifier: "",
     description: "",
@@ -46,10 +47,27 @@ class EditProject extends Component {
   };
 
   componentDidMount() {
-    this.props.getProject(this.props.match.params.id, this.props.history);
+    this.props.getProject(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
+    const { 
+      id,
+      name,
+      identifier,
+      description,
+      endDate,
+      startDate
+    } = nextProps.projects.project;
+
+    this.setState({
+      id,
+      name,
+      identifier,
+      description,
+      endDate: new Date(endDate) || null,
+      startDate: new Date(startDate) || null
+    });
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
@@ -146,5 +164,5 @@ const mapStateToProps = state => ({ ...state });
 
 export default connect(
   mapStateToProps,
-  { getProject }
+  { getProject, createProject }
 )(EditProject);
