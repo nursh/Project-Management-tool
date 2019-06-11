@@ -22,7 +22,7 @@ if (window.navigator.userAgent.includes("Chrome")) {
     rootReducer,
     initialState,
     compose(applyMiddleware(...middleware))
-  )
+  );
 }
 
 export default store;
