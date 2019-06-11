@@ -139,7 +139,7 @@ CreateProject.propTypes = {
   errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({ ...state });
+const mapStateToProps = state => ({ errors: state.errors });
 
 export default connect(
   mapStateToProps,

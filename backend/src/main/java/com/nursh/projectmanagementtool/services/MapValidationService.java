@@ -20,7 +20,7 @@ public class MapValidationService {
                 errors.put(error.getField(), error.getDefaultMessage());
             }
 
-            return new ResponseEntity<>("Invalid Object", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
 
         return null;

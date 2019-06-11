@@ -1,6 +1,8 @@
 package com.nursh.projectmanagementtool.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +14,9 @@ import java.util.Date;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "projects")
+@Builder
 public class Project {
 
     @Id

@@ -4,10 +4,20 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import { getProjects } from '../actions';
+
 
 import ProjectItem from "./Project/ProjectItem";
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
+
+  componentDidMount() {
+    this.props.getProjects();
+  }
+
   render() {
     return (
       <Container>
@@ -37,3 +47,15 @@ export default class Dashboard extends Component {
     );
   }
 }
+
+Dashboard.propTypes = {
+  projects: PropTypes.array.isRequired,
+  getProjects: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({ projects: state.projects })
+
+export default connect(
+  mapStateToProps,
+  { getProjects }
+)(Dashboard);
