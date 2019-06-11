@@ -38,9 +38,9 @@ class Dashboard extends Component {
         </Row>
 
         <Row className="mt-5">
-          {projects.map((project, n) => (
-            <Col className="mb-5" md={10} key={n}>
-              <ProjectItem key={n} project={project}/>
+          {projects.map(project => (
+            <Col className="mb-5" md={10} key={project.identifier}>
+              <ProjectItem key={project.identifier} project={project}/>
             </Col>
           ))}
         </Row>

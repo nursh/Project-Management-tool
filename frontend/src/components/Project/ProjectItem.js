@@ -14,15 +14,15 @@ class ProjectItem extends Component {
           <Card.Text>{project.description}</Card.Text>
         </Card.Body>
         <Card.Footer className="d-flex flex-row-reverse">
-          <Button variant="outline-danger" className="d-flex align-items-center  ml-3">
+          <Button variant="outline-danger" href="#" className="d-flex align-items-center  ml-3">
             <FaTrashAlt />
             <span className="pl-2">Delete project</span>
           </Button>
-          <Button variant="outline-info" className="d-flex align-items-center  ml-3">
+          <Button variant="outline-info" href={`/editProject/${project.identifier}`} className="d-flex align-items-center  ml-3">
             <FaEdit />
             <span className="pl-2">Edit project</span>
           </Button>
-          <Button variant="outline-primary" className="d-flex align-items-center  ml-3">
+          <Button variant="outline-primary" href="#" className="d-flex align-items-center  ml-3">
             <FaTasks />
             <span className="pl-2">View project</span>
           </Button>

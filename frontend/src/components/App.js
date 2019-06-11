@@ -6,6 +6,7 @@ import {
   Route
 } from 'react-router-dom';
 import CreateProject from './Project/CreateProject';
+import EditProject from './Project/EditProject';
 
 
 
@@ -16,6 +17,7 @@ function App() {
         <Header />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/createProject" component={CreateProject} />
+        <Route path="/editProject/:id" component={EditProject} />
       </div>
     </Router>
   );
