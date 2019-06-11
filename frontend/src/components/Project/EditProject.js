@@ -47,10 +47,13 @@ class EditProject extends Component {
   };
 
   componentDidMount() {
-    this.props.getProject(this.props.match.params.id);
+    this.props.getProject(this.props.match.params.id, this.props.history);
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
     const { 
       id,
       name,
@@ -65,12 +68,9 @@ class EditProject extends Component {
       name,
       identifier,
       description,
-      endDate: new Date(endDate) || null,
-      startDate: new Date(startDate) || null
+      endDate: endDate ? new Date(endDate) : null,
+      startDate: startDate ? new Date(startDate) : null
     });
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
   }
 
   render() {
