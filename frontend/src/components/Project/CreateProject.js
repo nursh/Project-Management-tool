@@ -2,50 +2,57 @@ import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
+import FormControl from 'react-bootstrap/FormControl';
 import Col from "react-bootstrap/Col";
-import Button from 'react-bootstrap/Button';
-import DatePicker from 'react-datepicker';
+import Button from "react-bootstrap/Button";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createProject } from '../../actions';
-
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createProject } from "../../actions";
 
 class CreateProject extends Component {
-  
   state = {
-    name: '',
-    identifier: '',
-    description: '',
-    startDate: '',
-    endDate: ''
-  }
+    name: "",
+    identifier: "",
+    description: "",
+    startDate: "",
+    endDate: "",
+    errors: {},
+  };
 
-  handleStartDate = (date) => {
+  handleStartDate = date => {
     this.setState({
       startDate: date
     });
-  }
+  };
 
-  handleEndDate = (date) => {
+  handleEndDate = date => {
     this.setState({
       endDate: date
     });
-  }
+  };
 
-  onChange = (evt) => {
+  onChange = evt => {
     this.setState({
       [evt.target.name]: evt.target.value
     });
-  }
+  };
 
-  onSubmit = (evt) => {
+  onSubmit = evt => {
     evt.preventDefault();
     const project = Object.assign({}, this.state);
     this.props.createProject(project, this.props.history);
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <Container>
         <Row className="mt-4">
@@ -63,7 +70,11 @@ class CreateProject extends Component {
                   name="name"
                   value={this.state.name}
                   onChange={this.onChange}
+                  isInvalid={!!errors.name}
                 />
+                <FormControl.Feedback type="invalid">
+                  {errors.name}
+                </FormControl.Feedback>
               </Form.Group>
 
               <Form.Group>
@@ -72,7 +83,11 @@ class CreateProject extends Component {
                   name="identifier"
                   value={this.state.identifier}
                   onChange={this.onChange}
+                  isInvalid={!!errors.identifier}
                 />
+                <FormControl.Feedback type="invalid">
+                  {errors.identifier}
+                </FormControl.Feedback>
               </Form.Group>
 
               <Form.Group>
@@ -83,12 +98,16 @@ class CreateProject extends Component {
                   name="description"
                   value={this.state.description}
                   onChange={this.onChange}
+                  isInvalid={!!errors.description}
                 />
+                <FormControl.Feedback type="invalid">
+                  {errors.description}
+                </FormControl.Feedback>
               </Form.Group>
 
               <Form.Group>
                 <Form.Label className="d-block">Start Date</Form.Label>
-                <DatePicker 
+                <DatePicker
                   selected={this.state.startDate}
                   onChange={this.handleStartDate}
                 />
@@ -96,7 +115,7 @@ class CreateProject extends Component {
 
               <Form.Group>
                 <Form.Label className="d-block">End Date</Form.Label>
-                <DatePicker 
+                <DatePicker
                   selected={this.state.endDate}
                   onChange={this.handleEndDate}
                 />
@@ -116,10 +135,13 @@ class CreateProject extends Component {
 }
 
 CreateProject.propTypes = {
-  createProject: PropTypes.func.isRequired
+  createProject: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => ({ ...state });
+
 export default connect(
-  null,
+  mapStateToProps,
   { createProject }
 )(CreateProject);
