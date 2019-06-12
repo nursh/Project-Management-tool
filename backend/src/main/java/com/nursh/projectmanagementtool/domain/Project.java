@@ -36,6 +36,9 @@ public class Project {
     @NotBlank(message = "Project description is required")
     private String description;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+    private Backlog backlog;
+
     @JsonFormat(pattern = "yyyy-mm-dd")
     @Column(name = "start_date")
     private Date startDate;
