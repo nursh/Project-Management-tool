@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/backlog")
+@RequestMapping("/api/backlogs")
 @CrossOrigin(origins = "http://localhost:3000")
 public class BacklogController {
 
@@ -36,5 +36,10 @@ public class BacklogController {
 
         Task addedTask = taskService.addTask(backlogId, task);
         return new ResponseEntity<Task>(addedTask, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{backlogId}")
+    public Iterable<Task> getProjectBacklog(@PathVariable String backlogId) {
+        return taskService.findBacklogById(backlogId);
     }
 }
