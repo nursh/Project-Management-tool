@@ -27,7 +27,7 @@ public class Task {
     private String summary;
     private String acceptanceCriteria;
     private String status;
-    private int priority;
+    private Integer priority;
 
     @Column(updatable = false)
     private String projectIdenfier;
