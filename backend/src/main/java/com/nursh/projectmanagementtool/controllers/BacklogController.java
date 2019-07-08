@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/backlogs")
+@RequestMapping("/api/backlog")
 @CrossOrigin(origins = "http://localhost:3000")
 public class BacklogController {
 

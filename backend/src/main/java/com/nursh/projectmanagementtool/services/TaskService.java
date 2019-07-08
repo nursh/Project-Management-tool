@@ -1,9 +1,11 @@
 package com.nursh.projectmanagementtool.services;
 
 import com.nursh.projectmanagementtool.domain.Backlog;
+import com.nursh.projectmanagementtool.domain.Project;
 import com.nursh.projectmanagementtool.domain.Task;
 import com.nursh.projectmanagementtool.exceptions.ProjectNotFoundException;
 import com.nursh.projectmanagementtool.repositories.BacklogRepository;
+import com.nursh.projectmanagementtool.repositories.ProjectRepository;
 import com.nursh.projectmanagementtool.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +15,13 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final BacklogRepository backlogRepository;
+    private final ProjectRepository projectRepository;
 
     @Autowired
-    public TaskService(TaskRepository taskRepository, BacklogRepository backlogRepository) {
+    public TaskService(TaskRepository taskRepository, BacklogRepository backlogRepository, ProjectRepository projectRepository) {
         this.taskRepository = taskRepository;
         this.backlogRepository = backlogRepository;
+        this.projectRepository = projectRepository;
     }
 
     public Task addTask(String projectIdentifier, Task task) {
@@ -47,6 +51,10 @@ public class TaskService {
 
 
     public Iterable<Task> findBacklogById(String identifier) {
+        Project project = projectRepository.findByIdentifier(identifier);
+        if (project == null) {
+            throw new ProjectNotFoundException("Project with ID: '" + identifier + "' does not exist");
+        }
         return taskRepository.findByProjectIdenfierOrderByPriority(identifier);
     }
 }
