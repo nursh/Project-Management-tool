@@ -2,6 +2,7 @@ package com.nursh.projectmanagementtool.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Backlog {
@@ -21,9 +23,8 @@ public class Backlog {
     private int PTSequence = 0;
     private String projectIdentifier;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "project_id", nullable = false)
     @JsonIgnore
+    @OneToOne(mappedBy = "backlog")
     private Project project;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "backlog")

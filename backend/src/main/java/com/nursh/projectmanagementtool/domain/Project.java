@@ -37,7 +37,8 @@ public class Project {
     @NotBlank(message = "Project description is required")
     private String description;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "backlog")
     @JsonIgnore
     private Backlog backlog;
 

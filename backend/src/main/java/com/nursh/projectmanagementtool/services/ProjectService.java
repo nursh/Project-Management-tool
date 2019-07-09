@@ -8,6 +8,8 @@ import com.nursh.projectmanagementtool.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectService {
 
@@ -65,5 +67,11 @@ public class ProjectService {
         }
 
         projectRepository.delete(project);
+    }
+
+    public void saveAll(List<Project> projects) {
+        for (Project project : projects) {
+            saveOrUpdate(project);
+        }
     }
 }

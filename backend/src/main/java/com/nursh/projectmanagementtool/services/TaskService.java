@@ -10,6 +10,8 @@ import com.nursh.projectmanagementtool.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TaskService {
 
@@ -42,10 +44,16 @@ public class TaskService {
             if (task.getStatus() == "" || task.getStatus() == null) {
                 task.setStatus("TO_DO");
             }
-
+            backlogRepository.save(backlog);
             return taskRepository.save(task);
         } catch (Exception e) {
             throw new ProjectNotFoundException("Project not found");
+        }
+    }
+
+    public void saveAll(String identifier, List<Task> tasks) {
+        for (Task task: tasks) {
+            addTask(identifier, task);
         }
     }
 
@@ -56,5 +64,9 @@ public class TaskService {
             throw new ProjectNotFoundException("Project with ID: '" + identifier + "' does not exist");
         }
         return taskRepository.findByProjectIdenfierOrderByPriority(identifier);
+    }
+
+    public Task findTaskByProjectSequence(String backlogId, String sequence) {
+        return taskRepository.findByProjectSequence(sequence);
     }
 }

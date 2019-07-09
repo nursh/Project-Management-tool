@@ -2,5 +2,3 @@ CREATE DATABASE  IF NOT EXISTS `ppm`;
 USE `ppm`;
 
 
-
-
