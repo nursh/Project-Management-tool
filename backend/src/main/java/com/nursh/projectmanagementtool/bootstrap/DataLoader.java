@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Date;
+import java.util.stream.StreamSupport;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -24,7 +26,11 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        loadData();
+        long count = StreamSupport.stream(projectService.findAllProjects().spliterator(), false).count();
+        if (count <= 0) {
+            loadData();
+        }
+
     }
 
     public void loadData() {
@@ -37,16 +43,22 @@ public class DataLoader implements CommandLineRunner {
 
         Task task1 = Task
             .builder()
+            .acceptanceCriteria("Finish first task")
+            .dueDate(new Date())
             .summary("First Task")
             .build();
 
         Task task2 = Task
             .builder()
+            .acceptanceCriteria("Finish second task")
+            .dueDate(new Date())
             .summary("Second Task")
             .build();
 
         Task task3 = Task
             .builder()
+            .acceptanceCriteria("Finish third task")
+            .dueDate(new Date())
             .summary("Third Task")
             .build();
 
@@ -55,6 +67,20 @@ public class DataLoader implements CommandLineRunner {
             .name("D3 - Data visualization")
             .description("Data Visualization with d3 Library")
             .identifier("D3js")
+            .build();
+
+        Task task4 = Task
+            .builder()
+            .acceptanceCriteria("Finish Line Graph")
+            .dueDate(new Date())
+            .summary("Line Graph")
+            .build();
+
+        Task task5 = Task
+            .builder()
+            .acceptanceCriteria("Finish Pie chart")
+            .dueDate(new Date())
+            .summary("Pie Chart")
             .build();
 
         Project pixi = Project
@@ -66,5 +92,8 @@ public class DataLoader implements CommandLineRunner {
 
         projectService.saveAll(Arrays.asList(angular, d3, pixi));
         taskService.saveAll(angular.getIdentifier(), Arrays.asList(task1, task2, task3));
+        taskService.saveAll(d3.getIdentifier(), Arrays.asList(task4, task5));
+
+        System.out.println("Loaded all test data...");
     }
 }
