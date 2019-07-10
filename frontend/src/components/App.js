@@ -7,6 +7,9 @@ import {
 } from 'react-router-dom';
 import CreateProject from './Project/CreateProject';
 import EditProject from './Project/EditProject';
+import ProjectBoard from './ProjectBoard/ProjectBoard';
+import AddTask from './ProjectBoard/Tasks/AddTask';
+import UpdateTask from './ProjectBoard/Tasks/UpdateTask';
 
 
 
@@ -18,6 +21,9 @@ function App() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/createProject" component={CreateProject} />
         <Route path="/editProject/:id" component={EditProject} />
+        <Route path="/project" component={ProjectBoard} />
+        <Route path="/addTask" component={AddTask} />
+        <Route path="/updateTask" component={UpdateTask} />
       </div>
     </Router>
   );
