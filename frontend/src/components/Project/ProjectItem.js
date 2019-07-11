@@ -39,7 +39,7 @@ class ProjectItem extends Component {
           </Button>
           <Button
             variant="outline-primary"
-            href="#"
+            href={`/projectBoard/${project.identifier}`}
             className="d-flex align-items-center  ml-3"
           >
             <FaTasks />

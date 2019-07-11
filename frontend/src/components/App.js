@@ -21,9 +21,9 @@ function App() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/createProject" component={CreateProject} />
         <Route path="/editProject/:id" component={EditProject} />
-        <Route path="/project" component={ProjectBoard} />
-        <Route path="/addTask" component={AddTask} />
-        <Route path="/updateTask" component={UpdateTask} />
+        <Route path="/projectBoard/:id" component={ProjectBoard} />
+        <Route path="/addTask/:id" component={AddTask} />
+        <Route path="/updateTask/:id" component={UpdateTask} />
       </div>
     </Router>
   );
