@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getProject, createProject } from "../../actions";
+import { getProject, createProject } from "../../actions/project";
 
 class EditProject extends Component {
   state = {

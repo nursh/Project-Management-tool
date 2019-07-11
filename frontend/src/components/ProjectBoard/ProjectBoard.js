@@ -35,7 +35,7 @@ class ProjectBoard extends Component {
               </Card.Body>
               <Card.Footer className="d-flex flex-row-reverse">
                 <Button variant="danger">Delete</Button>
-                <Button className="mr-4">View / Update</Button>
+                <Button className="mr-4" href={`/updateTask/${id}`}>View / Update</Button>
               </Card.Footer>
             </Card>
           </Col>

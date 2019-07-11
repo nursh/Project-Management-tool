@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getProjects } from '../actions';
+import { getProjects } from '../actions/project';
 
 
 import ProjectItem from "./Project/ProjectItem";

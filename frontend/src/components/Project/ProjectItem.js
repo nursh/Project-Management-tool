@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { FaTrashAlt, FaEdit, FaTasks } from "react-icons/fa";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { deleteProject } from "../../actions";
+import { deleteProject } from "../../actions/project";
 
 class ProjectItem extends Component {
   onDeleteClick = id => {

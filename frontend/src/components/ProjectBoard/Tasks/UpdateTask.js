@@ -21,11 +21,13 @@ export default class UpdateTask extends Component {
   };
 
   render() {
+    const { id } = this.props.match.params;
+
     return (
       <Container>
         <Row>
           <Col md={8} className="mt-5">
-            <Button href="#">Back to Project Board</Button>
+            <Button href={`/projectBoard/${id}`}>Back to Project Board</Button>
           </Col>
         </Row>
 
