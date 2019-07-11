@@ -17,7 +17,8 @@ class AddTask extends Component {
     acceptanceCriteria: "",
     status: "",
     priority: "",
-    projectIdentifier: this.props.match.params.id
+    projectIdentifier: this.props.match.params.id,
+    errors: {}
   };
 
   handleDueDate = date => {
@@ -39,8 +40,15 @@ class AddTask extends Component {
     this.props.addTask(id, task, this.props.history);
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   render() {
     const { id } = this.props.match.params;
+    const { errors } = this.state;
 
     return (
       <Container>
@@ -73,7 +81,7 @@ class AddTask extends Component {
                   onChange={this.onChange}
                 />
                 <FormControl.Feedback type="invalid">
-                  errors
+                  {errors.summary}
                 </FormControl.Feedback>
               </Form.Group>
 
@@ -146,7 +154,9 @@ AddTask.propTypes = {
   addTask: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({ errors: state.errors });
+
 export default connect(
-  null,
+  mapStateToProps,
   { addTask }
 )(AddTask);

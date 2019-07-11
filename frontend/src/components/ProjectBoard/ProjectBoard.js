@@ -27,7 +27,7 @@ class ProjectBoard extends Component {
             </Card>
 
             <Card>
-              <Card.Header>ID: sequence -- Priority: priority</Card.Header>
+              <Card.Header>ID: {`${id}`} -- Priority: priority</Card.Header>
               <Card.Body>
                 <Card.Title>Task summary</Card.Title>
                 <Card.Text>Acceptance Criteria</Card.Text>
