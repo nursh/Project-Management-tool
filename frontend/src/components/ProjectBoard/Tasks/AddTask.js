@@ -1,28 +1,47 @@
-import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
-import DatePicker from 'react-datepicker';
-
+import React, { Component } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import DatePicker from "react-datepicker";
+import { connect } from "react-redux";
+import { addTask } from "../../../actions/backlog";
+import PropTypes from "prop-types";
 
 class AddTask extends Component {
-
   state = {
-    dueDate: ''
-  }
+    dueDate: "",
+    summary: "",
+    acceptanceCriteria: "",
+    status: "",
+    priority: "",
+    projectIdentifier: this.props.match.params.id
+  };
 
-  handleStartDate = date => {
+  handleDueDate = date => {
     this.setState({
       dueDate: date
     });
   };
 
+  onChange = evt => {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    });
+  };
+
+  onSubmit = evt => {
+    evt.preventDefault();
+    const task = Object.assign({}, this.state);
+    const { id } = this.props.match.params;
+    this.props.addTask(id, task, this.props.history);
+  };
+
   render() {
     const { id } = this.props.match.params;
-    
+
     return (
       <Container>
         <Row>
@@ -45,12 +64,13 @@ class AddTask extends Component {
 
         <Row className="mt-4">
           <Col md={8}>
-            <Form>
-
+            <Form onSubmit={this.onSubmit}>
               <Form.Group>
                 <Form.Label>Summary</Form.Label>
                 <Form.Control
                   name="summary"
+                  value={this.state.summary}
+                  onChange={this.onChange}
                 />
                 <FormControl.Feedback type="invalid">
                   errors
@@ -63,6 +83,8 @@ class AddTask extends Component {
                   as="textarea"
                   rows="3"
                   name="acceptanceCriteria"
+                  value={this.state.acceptanceCriteria}
+                  onChange={this.onChange}
                 />
                 <FormControl.Feedback type="invalid">
                   errors
@@ -79,7 +101,12 @@ class AddTask extends Component {
 
               <Form.Group>
                 <Form.Label>Priority</Form.Label>
-                <Form.Control as="select">
+                <Form.Control
+                  as="select"
+                  name="priority"
+                  value={this.state.priority}
+                  onChange={this.onChange}
+                >
                   <option value={0}>Select Priority</option>
                   <option value={1}>High</option>
                   <option value={2}>Medium</option>
@@ -89,11 +116,16 @@ class AddTask extends Component {
 
               <Form.Group>
                 <Form.Label>Status</Form.Label>
-                <Form.Control as="select">
-                  <option value=''>Select Status</option>
-                  <option value='TO DO'>TO DO</option>
-                  <option value='IN PROGRESS'>IN PROGRESS</option>
-                  <option value='DONE'>DONE</option>
+                <Form.Control
+                  as="select"
+                  name="status"
+                  value={this.state.status}
+                  onChange={this.onChange}
+                >
+                  <option value="">Select Status</option>
+                  <option value="TO DO">TO DO</option>
+                  <option value="IN PROGRESS">IN PROGRESS</option>
+                  <option value="DONE">DONE</option>
                 </Form.Control>
               </Form.Group>
 
@@ -110,4 +142,11 @@ class AddTask extends Component {
   }
 }
 
-export default AddTask;
+AddTask.propTypes = {
+  addTask: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { addTask }
+)(AddTask);
