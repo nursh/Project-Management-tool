@@ -61,12 +61,12 @@ export const updateTask = (backlogId, taskId, task, history) => async dispatch =
   }
 };
 
-export const deleteTask = id => async dispatch => {
-  if (window.confirm("Are you sure you want to delete this project")) {
-    await axios.delete(`/api/projects/${id}`);
+export const deleteTask = (backlogId, taskId) => async dispatch => {
+  if (window.confirm("Are you sure you want to delete this task")) {
+    await axios.delete(`/api/backlog/${backlogId}/tasks/${taskId}`);
     dispatch({
       type: DELETE_TASK,
-      payload: id
+      payload: taskId
     });
   }
 };
