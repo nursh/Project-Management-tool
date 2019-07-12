@@ -2,16 +2,22 @@ import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Backlog from './Backlog';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getBacklog } from '../../actions/backlog';
 
 
 class ProjectBoard extends Component {
 
+  componentDidMount() {
+    this.props.getBacklog(this.props.match.params.id);
+  }
 
   render() {
     const { id } = this.props.match.params;
-
+    const { tasks } = this.props.backlog;
     return (
       <Container>
         <Row className="mt-4">
@@ -20,41 +26,20 @@ class ProjectBoard extends Component {
           </Col>
         </Row>
 
-        <Row className="mt-4">
-          <Col md={4}>
-            <Card bg="primary" text="white">
-              <Card.Header as="h3">TO DO</Card.Header>
-            </Card>
-
-            <Card>
-              <Card.Header>ID: {`${id}`} -- Priority: priority</Card.Header>
-              <Card.Body>
-                <Card.Title>Task summary</Card.Title>
-                <Card.Text>Acceptance Criteria</Card.Text>
- 
-              </Card.Body>
-              <Card.Footer className="d-flex flex-row-reverse">
-                <Button variant="danger">Delete</Button>
-                <Button className="mr-4" href={`/updateTask/${id}`}>View / Update</Button>
-              </Card.Footer>
-            </Card>
-          </Col>
-
-          <Col md={4}>
-            <Card bg="secondary" text="white">
-              <Card.Header as="h3">IN PROGRESS</Card.Header>
-            </Card>
-          </Col>
-
-          <Col md={4}>
-            <Card bg="success" text="white">
-              <Card.Header as="h3">DONE</Card.Header>
-            </Card>
-          </Col>
-        </Row>
+        <Backlog id={id} tasks={tasks} />
       </Container>
     );
   }
 }
 
-export default ProjectBoard;
+ProjectBoard.propTypes = {
+  backlog: PropTypes.object.isRequired,
+  getBacklog: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({ ...state });
+
+export default connect(
+  mapStateToProps,
+  { getBacklog }
+)(ProjectBoard);
