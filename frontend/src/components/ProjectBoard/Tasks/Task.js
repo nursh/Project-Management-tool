@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 
 class Task extends Component {
   render() {
-    const { id, task } = this.props;
+    const { task } = this.props;
     return (
       <div>
         <Card>
@@ -16,7 +16,10 @@ class Task extends Component {
           </Card.Body>
           <Card.Footer className="d-flex flex-row-reverse">
             <Button variant="danger">Delete</Button>
-            <Button className="mr-4" href={`/updateTask/${id}`}>
+            <Button
+              className="mr-4"
+              href={`/updateTask/${task.projectIdentifier}/tasks/${task.projectSequence}`}
+            >
               View / Update
             </Button>
           </Card.Footer>

@@ -60,13 +60,13 @@ class AddTask extends Component {
 
         <Row>
           <Col md={8} className="mt-3">
-            <h2 className="text-center">Project Name - Project Code</h2>
+            <h2  className="text-center">Add Task</h2>
           </Col>
         </Row>
 
         <Row>
           <Col md={8} className="mt-3">
-            <h4>Add Task</h4>
+            <h4>{id}</h4>
           </Col>
         </Row>
 

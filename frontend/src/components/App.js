@@ -23,7 +23,7 @@ function App() {
         <Route path="/editProject/:id" component={EditProject} />
         <Route path="/projectBoard/:id" component={ProjectBoard} />
         <Route path="/addTask/:id" component={AddTask} />
-        <Route path="/updateTask/:id" component={UpdateTask} />
+        <Route path="/updateTask/:backlogId/tasks/:taskId" component={UpdateTask} />
       </div>
     </Router>
   );
