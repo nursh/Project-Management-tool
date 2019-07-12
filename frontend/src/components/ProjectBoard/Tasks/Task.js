@@ -9,7 +9,7 @@ class Task extends Component {
     return (
       <div>
         <Card>
-          <Card.Header>ID: {task.projectSequence} -- Priority: {task.priority}</Card.Header>
+          <Card.Header>{task.projectSequence} -- Priority: {task.priority}</Card.Header>
           <Card.Body>
             <Card.Title>{task.summary}</Card.Title>
             <Card.Text>{task.acceptanceCriteria}</Card.Text>
