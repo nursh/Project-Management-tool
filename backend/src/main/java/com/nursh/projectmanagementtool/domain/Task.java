@@ -30,7 +30,7 @@ public class Task {
     private Integer priority;
 
     @Column(updatable = false)
-    private String projectIdenfier;
+    private String projectIdentifier;
     private Date dueDate;
     private Date created_At;
     private Date updated_At;
