@@ -1,6 +1,7 @@
 package com.nursh.projectmanagementtool.services;
 
 import com.nursh.projectmanagementtool.domain.User;
+import com.nursh.projectmanagementtool.exceptions.UsernameAlreadyExistsException;
 import com.nursh.projectmanagementtool.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,13 @@ public class UserService {
     }
 
     public User saveUser(User user) {
-
+        try {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setConfirmPassword("");
             return userRepository.save(user);
+        } catch (Exception e) {
+            throw new UsernameAlreadyExistsException("Username '" + user.getUsername() + "' already exists.");
+        }
 
     }
 }
