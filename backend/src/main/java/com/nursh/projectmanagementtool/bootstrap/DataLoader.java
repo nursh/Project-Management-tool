@@ -17,6 +17,7 @@ import java.util.stream.StreamSupport;
 public class DataLoader implements CommandLineRunner {
 
 
+    public static final String USER_NAME = "Leroy@gmail.com";
     private final ProjectService projectService;
     private final TaskService taskService;
     private final UserService userService;
@@ -30,7 +31,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        long count = StreamSupport.stream(projectService.findAllProjects().spliterator(), false).count();
+        long count = StreamSupport.stream(projectService.findAllProjects(USER_NAME).spliterator(), false).count();
         if (count <= 0) {
             loadData();
         }
