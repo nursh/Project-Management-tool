@@ -2,8 +2,10 @@ package com.nursh.projectmanagementtool.bootstrap;
 
 import com.nursh.projectmanagementtool.domain.Project;
 import com.nursh.projectmanagementtool.domain.Task;
+import com.nursh.projectmanagementtool.domain.User;
 import com.nursh.projectmanagementtool.services.ProjectService;
 import com.nursh.projectmanagementtool.services.TaskService;
+import com.nursh.projectmanagementtool.services.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +19,13 @@ public class DataLoader implements CommandLineRunner {
 
     private final ProjectService projectService;
     private final TaskService taskService;
+    private final UserService userService;
 
 
-    public DataLoader(ProjectService projectService, TaskService taskService) {
+    public DataLoader(ProjectService projectService, TaskService taskService, UserService userService) {
         this.projectService = projectService;
         this.taskService = taskService;
+        this.userService = userService;
     }
 
     @Override
@@ -90,7 +94,16 @@ public class DataLoader implements CommandLineRunner {
             .identifier("Pixi")
             .build();
 
-        projectService.saveAll(Arrays.asList(angular, d3, pixi));
+        User user1 = User
+            .builder()
+            .username("Leroy@gmail.com")
+            .password("password")
+            .fullName("Leroy Jenkins")
+            .build();
+
+
+        userService.saveUser(user1);
+        projectService.saveAll(Arrays.asList(angular, d3, pixi), user1.getUsername());
         taskService.saveAll(angular.getIdentifier(), Arrays.asList(task1, task2, task3));
         taskService.saveAll(d3.getIdentifier(), Arrays.asList(task4, task5));
 

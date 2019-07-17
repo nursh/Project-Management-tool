@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/projects")
@@ -28,29 +29,30 @@ public class ProjectController {
     @PostMapping("")
     public ResponseEntity<?> createNewProject(
         @Valid @RequestBody Project project,
-        BindingResult result) {
+        BindingResult result,
+        Principal principal) {
 
         ResponseEntity<?> errors = validationService.validate(result);
         if (errors != null) return errors;
 
-        Project savedProject = projectService.saveOrUpdate(project);
+        Project savedProject = projectService.saveOrUpdate(project, principal.getName());
         return new ResponseEntity<Project>(savedProject, HttpStatus.CREATED);
     }
 
     @GetMapping("/{projectId}")
-    public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
-        Project project = projectService.findByIdentifier(projectId);
+    public ResponseEntity<?> getProjectById(@PathVariable String projectId, Principal principal) {
+        Project project = projectService.findByIdentifier(projectId, principal.getName());
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
     @GetMapping("")
-    public Iterable<Project> getAllProjects() {
-        return projectService.findAllProjects();
+    public Iterable<Project> getAllProjects(Principal principal) {
+        return projectService.findAllProjects(principal.getName());
     }
 
     @DeleteMapping("/{projectId}")
-    public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
-        projectService.deleteProject(projectId);
+    public ResponseEntity<?> deleteProject(@PathVariable String projectId, Principal principal) {
+        projectService.deleteProject(projectId, principal.getName());
         return new ResponseEntity<String>("Project " + projectId + " was deleted", HttpStatus.OK);
     }
 }

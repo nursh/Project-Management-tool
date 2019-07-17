@@ -58,6 +58,12 @@ public class Project {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
+
+    private String leader;
+
 
     @PrePersist
     protected void onCreate() {
