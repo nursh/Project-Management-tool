@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static com.nursh.projectmanagementtool.security.SecurityConstants.H2_URL;
 import static com.nursh.projectmanagementtool.security.SecurityConstants.SIGN_UP_URLS;
@@ -28,11 +29,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationEntryPoint entryPoint;
     private CustomUserDetailsService customUserDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private JWTTokenProvider tokenProvider;
 
-    public SecurityConfig(JwtAuthenticationEntryPoint entryPoint, CustomUserDetailsService customUserDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public SecurityConfig(JwtAuthenticationEntryPoint entryPoint, CustomUserDetailsService customUserDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder, JWTTokenProvider tokenProvider) {
         this.entryPoint = entryPoint;
         this.customUserDetailsService = customUserDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.tokenProvider = tokenProvider;
     }
 
     @Override
@@ -60,6 +63,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(H2_URL).permitAll()
             .anyRequest()
             .authenticated();
+
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public JWTAuthenticationFilter jwtAuthenticationFilter() {
+        return new JWTAuthenticationFilter(tokenProvider, customUserDetailsService);
     }
 
     @Override
